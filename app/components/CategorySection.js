@@ -1,29 +1,70 @@
+'use client'
+
 import Link from "next/link";
+import { useRef } from "react";
+
+// Array of categories
+const categories = [
+    { name: "Home", href: "/" },
+    { name: "General", href: "/category/general" },
+    { name: "World", href: "/category/world" },
+    { name: "Nation", href: "/category/nation" },
+    { name: "Business", href: "/category/business" },
+    { name: "Technology", href: "/category/technology" },
+    { name: "Entertainment", href: "/category/entertainment" },
+    { name: "Sports", href: "/category/sports" },
+    { name: "Science", href: "/category/science" },
+    { name: "Health", href: "/category/health" }
+];
 
 const CategorySection = () => {
+    const scrollContainerRef = useRef(null);
+
+    const scroll = (direction) => {
+        if (scrollContainerRef.current) {
+            const scrollAmount = 200; // Adjust this value to control scroll speed
+            scrollContainerRef.current.scrollBy({
+                left: direction === "left" ? -scrollAmount : scrollAmount,
+                behavior: "smooth"
+            });
+        }
+    };
+
     return (
-        <div className="flex justify-between items-center w-full max-w-[860px] h-[56px] mx-auto px-4 border-b border-gray-500">
-            <nav className="flex flex-grow justify-between items-center">
-                <Link href="/" className="mx-2">Home</Link>
-                <Link href="/politics" className="mx-2">Politics</Link>
-                <Link href="/technology" className="mx-2">Technology</Link>
-                <Link href="/sports" className="mx-2">Sports</Link>
-                <Link href="/fashion" className="mx-2">Fashion</Link>
-                {/* Add more links if needed */}
-            </nav>
-            <div className="flex items-center space-x-2">
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500"
-                />
-                <button
-                    type="button"
-                    className="bg-blue-500 text-white px-4 py-1 rounded-md hover:bg-blue-600"
+        <div className="w-full max-w-[860px] mx-auto px-4 py-2 border-b border-gray-500">
+            <div className="relative">
+                {/* Scroll Buttons */}
+                {/* <button
+                    onClick={() => scroll("left")}
+                    className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white text-gray-700 border border-gray-300 rounded-full p-2 shadow-md hover:bg-gray-200"
                 >
-                    Search
+                    &lt;
                 </button>
-            </div>
+                <button
+                    onClick={() => scroll("right")}
+                    className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white text-gray-700 border border-gray-300 rounded-full p-2 shadow-md hover:bg-gray-200"
+                >
+                    &gt;
+                </button> */}
+
+                {/* Scrollable Container */}
+                {/* <div
+                    ref={scrollContainerRef}
+                    className="flex overflow-x-auto whitespace-nowrap scroll-smooth"
+                > */}
+                    <nav className="flex items-center space-x-4">
+                        {categories.map((category) => (
+                            <Link
+                                key={category.href}
+                                href={category.href}
+                                className="text-blue-500 hover:text-blue-700"
+                            >
+                                {category.name}
+                            </Link>
+                        ))}
+                    </nav>
+                </div>
+            {/* </div> */}
         </div>
     );
 };
