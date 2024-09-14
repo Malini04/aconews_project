@@ -1,17 +1,11 @@
-// pages/index.js
-
-import BreakingNews from "../components/BreakingNews";
 import CategorySection from "../components/CategorySection";
-import DailyFeed from "../components/DailyFeed";
 import DateHeader from "../components/DateHeader";
 import FeaturedStories from "../components/FeaturedStories";
 import Header from "../components/Header";
 import LatestNewsSection from "../components/LatestNewsSection";
 import NewsSection from "../components/NewsSection";
 
-
-
-const ArticlePage = () => (
+const NewsPaper = () => (
   <>
     <DateHeader/>
     <Header />
@@ -22,4 +16,4 @@ const ArticlePage = () => (
   </>
 );
 
-export default ArticlePage;
+export default NewsPaper;

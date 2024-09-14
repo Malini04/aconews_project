@@ -54,7 +54,7 @@ const FeaturedStories = () => {
       <div className="border-b-4 border-gray-300 mb-0.5"></div>
       <div className="border-b-2 border-gray-300 mb-4"></div>
 
-      <div className="grid grid-cols-2 gap-4 mb-4">
+      <div className="grid grid-cols-2 gap-4 mb-8">
         {/* Map through newsStories array */}
         {newsStories.map((story) => (
           <div key={story.id}>
@@ -65,7 +65,7 @@ const FeaturedStories = () => {
             />
 
             {/* News Info */}
-            <div className="text-sm text-gray-500 mb-2 text-red-500">
+            <div className="text-sm hover:text-gray-500 mb-2 text-red-500">
               <span>{story.date}</span> | <span>{story.category}</span>
             </div>
 
@@ -89,13 +89,13 @@ const FeaturedStories = () => {
           </div>
         ))}
       </div>
-      
-      
+
+
       <div className="border-b-4 border-gray-700 mb-0.5"></div>
 
-      <a href="/news/daily-feed" className="text-red-500 hover:text-gray-500 ">
-          View More Posts
-        </a>
+      <a href="/news/daily-feed" className="text-red-500 hover:text-gray-500">
+        View More Posts
+      </a>
     </div>
   );
 };

@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
         {/* <header className="text-center text-acowale-blue">ACONEWS</header> */}
         {/* <Navbar /> */}
         <main className="content">{children}</main>
-        <footer className="text-center text-acowale-blue  footer">© 2024 ACONEWS</footer>
+        <footer className="text-center text-acowale-blue  footer">THE NEWSPAPER © 2024 ACONEWS | ALL RIGHTS RESERVED</footer>
       </body>
     </html>
   );
