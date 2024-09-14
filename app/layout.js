@@ -1,4 +1,6 @@
 import localFont from "next/font/local";
+import Navbar from "./components/Navbar";
+
 import "./globals.css";
 
 const geistSans = localFont({
@@ -21,9 +23,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-[family-name:var(--font-geist-mono)] layout-container `}
       >
-        {children}
+        {/* <header className="text-center text-acowale-blue">ACONEWS</header> */}
+        {/* <Navbar /> */}
+        <main className="content">{children}</main>
+        <footer className="text-center text-acowale-blue  footer">© 2024 ACONEWS</footer>
       </body>
     </html>
   );

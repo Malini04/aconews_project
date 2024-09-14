@@ -25,3 +25,23 @@ body {
     text-wrap: balance;
   }
 }
+
+.text-acowale-blue {
+  color: #0866FF; /* Acowale’s blue */
+}
+
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the layout container takes full viewport height */
+}
+
+.content {
+  flex-grow: 1; /* This allows the content to grow and push the footer to the bottom */
+}
+
+.footer {
+  /* background-color: #f0f0f0; Add your desired footer styling */
+  padding: 1rem;
+  text-align: center;
+}
