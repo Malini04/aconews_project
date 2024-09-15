@@ -40,7 +40,7 @@ const DailyFeed = () => {
 
 
   return (
-    <div className="bg-white p-4">
+    <div className="bg-white ">
       <h3 className="text-xl font-bold mb-4">Daily Feed</h3>
 
       {/* Display the top news item */}

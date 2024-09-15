@@ -1,0 +1,114 @@
+{
+  "articles": [
+    {
+      "title": "Breaking News: Example Headline 1",
+      "description": "This is a description for the first example news article.",
+      "url": "https://example.com/article1",
+      "image": "https://via.placeholder.com/600x300?text=Example+Image+1",
+      "publishedAt": "2024-09-15T12:00:00Z",
+      "category": "General",
+      "source": {
+        "name": "Example Source 1"
+      }
+    },
+    {
+      "title": "Latest Update: Example Headline 2",
+      "description": "This is a description for the second example news article.",
+      "url": "https://example.com/article2",
+      "image": "https://via.placeholder.com/600x300?text=Example+Image+2",
+      "publishedAt": "2024-09-15T13:00:00Z",
+      "category": "Technology",
+      "source": {
+        "name": "Example Source 2"
+      }
+    },
+    {
+      "title": "Exclusive: Example Headline 3",
+      "description": "This is a description for the third example news article.",
+      "url": "https://example.com/article3",
+      "image": "https://via.placeholder.com/600x300?text=Example+Image+3",
+      "publishedAt": "2024-09-15T14:00:00Z",
+      "category": "Business",
+      "source": {
+        "name": "Example Source 3"
+      }
+    },
+    {
+      "title": "Hot Off the Press: Example Headline 4",
+      "description": "This is a description for the fourth example news article.",
+      "url": "https://example.com/article4",
+      "image": "https://via.placeholder.com/600x300?text=Example+Image+4",
+      "publishedAt": "2024-09-15T15:00:00Z",
+      "category": "Health",
+      "source": {
+        "name": "Example Source 4"
+      }
+    },
+    {
+      "title": "Update: Example Headline 5",
+      "description": "This is a description for the fifth example news article.",
+      "url": "https://example.com/article5",
+      "image": "https://via.placeholder.com/600x300?text=Example+Image+5",
+      "publishedAt": "2024-09-15T16:00:00Z",
+      "category": "Science",
+      "source": {
+        "name": "Example Source 5"
+      }
+    },
+    {
+      "title": "News Alert: Example Headline 6",
+      "description": "This is a description for the sixth example news article.",
+      "url": "https://example.com/article6",
+      "image": "https://via.placeholder.com/600x300?text=Example+Image+6",
+      "publishedAt": "2024-09-15T17:00:00Z",
+      "category": "Entertainment",
+      "source": {
+        "name": "Example Source 6"
+      }
+    },
+    {
+      "title": "Top Story: Example Headline 7",
+      "description": "This is a description for the seventh example news article.",
+      "url": "https://example.com/article7",
+      "image": "https://via.placeholder.com/600x300?text=Example+Image+7",
+      "publishedAt": "2024-09-15T18:00:00Z",
+      "category": "General",
+      "source": {
+        "name": "Example Source 7"
+      }
+    },
+    {
+      "title": "Update: Example Headline 8",
+      "description": "This is a description for the eighth example news article.",
+      "url": "https://example.com/article8",
+      "image": "https://via.placeholder.com/600x300?text=Example+Image+8",
+      "publishedAt": "2024-09-15T19:00:00Z",
+      "category": "Technology",
+      "source": {
+        "name": "Example Source 8"
+      }
+    },
+    {
+      "title": "Breaking News: Example Headline 9",
+      "description": "This is a description for the ninth example news article.",
+      "url": "https://example.com/article9",
+      "image": "https://via.placeholder.com/600x300?text=Example+Image+9",
+      "publishedAt": "2024-09-15T20:00:00Z",
+      "category": "Business",
+      "source": {
+        "name": "Example Source 9"
+      }
+    },
+    {
+      "title": "Latest Update: Example Headline 10",
+      "description": "This is a description for the tenth example news article.",
+      "url": "https://example.com/article10",
+      "image": "https://via.placeholder.com/600x300?text=Example+Image+10",
+      "publishedAt": "2024-09-15T21:00:00Z",
+      "category": "Health",
+      "source": {
+        "name": "Example Source 10"
+      }
+    }
+  ]
+}

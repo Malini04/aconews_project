@@ -22,9 +22,10 @@ const DateHeader = () => {
       <div className="text-gray-600">{currentDate}</div>
       <div className="flex space-x-4">
         <Link href="/" className="hover:text-gray-800 text-gray-700">Home</Link>
-        <Link href="/politics" className="hover:text-gray-800 text-gray-700">Politics</Link>
+        <Link href="/new/daily-feed" className="hover:text-gray-800 text-gray-700">Daily-Feed</Link>
+        {/* <Link href="/politics" className="hover:text-gray-800 text-gray-700">Politics</Link>
         <Link href="/common-pages" className="hover:text-gray-800 text-gray-700">Common Pages</Link>
-        <Link href="/contacts" className="hover:text-gray-800 text-gray-700">Contacts</Link>
+        <Link href="/contacts" className="hover:text-gray-800 text-gray-700">Contacts</Link> */}
       </div>
     </header>
   );

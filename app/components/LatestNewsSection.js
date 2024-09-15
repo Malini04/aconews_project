@@ -66,7 +66,7 @@ const LatestNewsSection = () => {
     }, []);
 
     return (
-        <div className="w-full max-w-[860px] mx-auto mt-8 grid grid-cols-4 gap-4 border-t border-gray-300 pt-4">
+        <div className="w-full max-w-[860px] mx-auto mt-2 grid grid-cols-4 gap-4 border-t border-gray-300 pt-4">
             {categories.map((category) => (
                 <div key={category} className="flex flex-col">
                     <Link href={`/${category}`} className="text-red-400 hover:text-gray-500 text-left mb-2 text-xs">

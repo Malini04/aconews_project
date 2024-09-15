@@ -74,7 +74,7 @@ const FeaturedStories = () => {
   };
 
   return (
-    <div className="bg-white p-4 pt-12">
+    <div className="w-full max-w-[860px] mx-auto  py-2 bg-white pt-12">
       <h3 className="text-xl font-bold mb-4">FEATURED STORIES</h3>
       <div className="border-b-4 border-gray-300 mb-0.5"></div>
       <div className="border-b-2 border-gray-300 mb-4"></div>
