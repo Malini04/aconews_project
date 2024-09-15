@@ -5,18 +5,42 @@ import { useEffect, useState } from 'react';
 const API_KEY = process.env.NEXT_PUBLIC_GNEWS_API_KEY; // Ensure you have this in your .env file
 const API_URL = 'https://gnews.io/api/v4/top-headlines';
 
+// In-memory cache for news data
+const newsCache = {};
+
 const BreakingNews = () => {
     const [latestNews, setLatestNews] = useState(null);
     const [moreNews, setMoreNews] = useState([]);
-
+    
     const fetchNews = async () => {
+        // Check if the news is already cached
+        if (newsCache['breakingNews']) {
+            console.log("Using cached breaking news data");
+            const cachedData = newsCache['breakingNews'];
+            setLatestNews(cachedData.latest);
+            setMoreNews(cachedData.more);
+            return;
+        }
+
         const url = `${API_URL}?lang=en&country=us&max=5&apikey=${API_KEY}`;
         try {
             const response = await fetch(url);
+            if (response.status === 429) {
+                console.warn('Rate limit exceeded. Retrying after a delay...');
+                await new Promise(resolve => setTimeout(resolve, 60000)); // Retry after 60 seconds
+                return fetchNews(category); // Retry the request
+            }
             const data = await response.json();
-            if (data.articles.length > 0) {
-                setLatestNews(data.articles[0]); // Latest news
-                setMoreNews(data.articles.slice(1)); // Other news
+            
+            if (data.articles && data.articles.length > 0) {
+                const latest = data.articles[0]; // Latest news
+                const more = data.articles.slice(1); // Other news
+
+                // Cache the fetched data
+                newsCache['breakingNews'] = { latest, more };
+
+                setLatestNews(latest);  // Set the latest news
+                setMoreNews(more);      // Set more news
             }
         } catch (error) {
             console.error('Error fetching news:', error);

@@ -1,143 +1,70 @@
-// const FeaturedStories = () => {
-//   // Sample news data array
-//   const newsStories = [
-//     {
-//       id: 1,
-//       imageUrl: "/breaking-news.jpg",
-//       date: "Jan 15, 2024",
-//       category: "Politics",
-//       title: "Breaking News: Major Political Event Shakes the Nation",
-//       content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry...",
-//       link: "/breaking-news-url",
-//     },
-//     {
-//       id: 2,
-//       imageUrl: "/breaking-news.jpg",
-//       date: "Jan 12, 2024",
-//       category: "Technology",
-//       title: "Tech Giants Unveil New Innovations for 2024",
-//       content: "The biggest tech companies have announced their plans to bring revolutionary products to market...",
-//       link: "/technology-news-url",
-//     },
-//     {
-//       id: 3,
-//       imageUrl: "/travel-news.jpg",
-//       date: "Jan 10, 2024",
-//       category: "Travel",
-//       title: "Top Travel Destinations You Can't Miss in 2024",
-//       content: "Explore the hidden gems and must-visit locations around the globe for the year ahead...",
-//       link: "/travel-news-url",
-//     },
-//     {
-//       id: 4,
-//       imageUrl: "/lifestyle-news.jpg",
-//       date: "Jan 08, 2024",
-//       category: "Lifestyle",
-//       title: "How to Lead a Balanced Life in a Fast-Paced World",
-//       content: "Living a balanced lifestyle requires intention and prioritization. Here's how you can start...",
-//       link: "/lifestyle-news-url",
-//     }
-//   ];
-
-//   // Function to truncate content to 50 words
-//   const truncateContent = (content, wordLimit) => {
-//     const words = content.split(' ');
-//     if (words.length > wordLimit) {
-//       return words.slice(0, wordLimit).join(' ') + '...';
-//     }
-//     return content;
-//   };
-
-//   return (
-//     <div className="bg-white p-4 pt-12">
-//       <h3 className="text-xl font-bold mb-4">FEATURED STORIES</h3>
-//       <div className="border-b-4 border-gray-300 mb-0.5"></div>
-//       <div className="border-b-2 border-gray-300 mb-4"></div>
-
-//       <div className="grid grid-cols-2 gap-4 mb-8">
-//         {/* Map through newsStories array */}
-//         {newsStories.map((story) => (
-//           <div key={story.id}>
-//             <img
-//               src={story.imageUrl}
-//               alt={story.title}
-//               className="w-full h-[300px] object-cover mb-4"
-//             />
-
-//             {/* News Info */}
-//             <div className="text-sm hover:text-gray-500 mb-2 text-red-500">
-//               <span>{story.date}</span> | <span>{story.category}</span>
-//             </div>
-
-//             {/* News Title */}
-//             <h2 className="text-xl font-bold text-black hover:text-gray-500 cursor-pointer mb-4">
-//               <a href={story.link}>{story.title}</a>
-//             </h2>
-
-//             {/* Truncated News Content */}
-//             <p className="text-gray-600 mt-2 text-sm">
-//               {truncateContent(story.content, 50)}
-//             </p>
-
-//             {/* Read More Link */}
-//             <a
-//               href={story.link}
-//               className="text-blue-600 hover:text-gray-500 mt-2 block"
-//             >
-//               Read more
-//             </a>
-//           </div>
-//         ))}
-//       </div>
-
-
-//       <div className="border-b-4 border-gray-700 mb-0.5"></div>
-
-//       <a href="/news/daily-feed" className="text-red-500 hover:text-gray-500">
-//         View More Posts
-//       </a>
-//     </div>
-//   );
-// };
-
-// export default FeaturedStories;
-
-
-'use client';
-
-import { useEffect, useState } from 'react';
+'use client'
+import { useState, useEffect } from "react";
 
 // Define your API key and endpoint
-const API_KEY = process.env.NEXT_PUBLIC_GNEWS_API_KEY; // Ensure this is set in your .env file
+const API_KEY = process.env.NEXT_PUBLIC_GNEWS_API_KEY;
 const API_URL = 'https://gnews.io/api/v4/top-headlines';
 
 const FeaturedStories = () => {
-  const [newsStories, setNewsStories] = useState([]);
+  const [newsStories, setNewsStories] = useState([]);  // Store all fetched news stories here
+  const [currentPage, setCurrentPage] = useState(1);  // Pagination state
+  const storiesPerPage = 8;  // You want 4 rows with 2 columns (so 8 stories per page)
 
-  // Fetch news data from API for different categories
-  const fetchNews = async () => {
-    const categories = ['general', 'technology', 'travel', 'lifestyle', 'business']; // Add more categories as needed
-    const requests = categories.map(category =>
-      fetch(`${API_URL}?category=${category}&lang=en&country=us&max=1&apikey=${API_KEY}`)
-    );
+  const categories = ['world', 'nation', 'business', 'sports', 'science'];  // Categories to fetch
 
+  // Cache to store fetched stories by category
+  const newsCache = {};
+
+  // Fetch news for a specific category
+  const fetchNews = async (category) => {
+    // Check if data for this category is already in the cache
+    if (newsCache[category]) {
+      console.log(`Using cached data for category: ${category}`);
+      return newsCache[category];  // Return cached data
+    }
+
+    // If not cached, fetch news from API
+    const url = `${API_URL}?category=${category}&lang=en&country=us&max=10&apikey=${API_KEY}`; // Max 10 articles per category for now
     try {
-      const responses = await Promise.all(requests);
-      const data = await Promise.all(responses.map(res => res.json()));
-
-      // Flatten the array of articles and set the state
-      const stories = data.flatMap(item => item.articles);
-      setNewsStories(stories);
+      const response = await fetch(url);
+      if (response.status === 429) {
+        console.warn('Rate limit exceeded. Retrying after a delay...');
+        await new Promise(resolve => setTimeout(resolve, 6000)); // Retry after 60 seconds
+        return fetchNews(category); // Retry the request
+    }
+      const data = await response.json();
+      newsCache[category] = data.articles || [];  // Store the fetched data in the cache
+      return data.articles || [];
     } catch (error) {
       console.error('Error fetching news:', error);
+      return [];
     }
   };
 
+  // Fetch all categories and combine results
+  const fetchAllNews = async () => {
+    let allStories = [];
+    for (let category of categories) {
+      const categoryNews = await fetchNews(category);
+      allStories = [...allStories, ...categoryNews];  // Append stories from each category
+    }
+    setNewsStories(allStories);  // Set the combined stories into state
+  };
+
+  // Fetch news on component mount
   useEffect(() => {
-    fetchNews();
+    fetchAllNews();
   }, []);
 
-  // Function to truncate content to 50 words
+  // Pagination logic: Calculate stories to display on the current page
+  const indexOfLastStory = currentPage * storiesPerPage;
+  const indexOfFirstStory = indexOfLastStory - storiesPerPage;
+  const currentStories = newsStories.slice(indexOfFirstStory, indexOfLastStory);
+
+  // Function to go to next page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Truncate content to a specific word limit
   const truncateContent = (content, wordLimit) => {
     const words = content.split(' ');
     if (words.length > wordLimit) {
@@ -152,46 +79,41 @@ const FeaturedStories = () => {
       <div className="border-b-4 border-gray-300 mb-0.5"></div>
       <div className="border-b-2 border-gray-300 mb-4"></div>
 
+      {/* Display current paginated stories */}
       <div className="grid grid-cols-2 gap-4 mb-8">
-        {/* Map through newsStories array */}
-        {newsStories.map((story, index) => (
+        {currentStories.map((story, index) => (
           <div key={index}>
-            {/* News Image */}
-            {story.image ? (
-              <img
-                src={story.image}
-                alt={story.title}
-                className="w-full h-[300px] object-cover mb-4"
-              />
-            ) : (
-              <div className="w-full h-[300px] bg-gray-200 mb-4 flex items-center justify-center">
-                <span>No Image Available</span>
-              </div>
-            )}
-
-            {/* News Info */}
-            <div className="text-sm hover:text-gray-500 mb-2 text-red-500">
-              <span>{new Date(story.publishedAt).toLocaleDateString()}</span> | <span>{story.category || 'General'}</span>
+            <img
+              src={story.image || "/placeholder.jpg"}  // Use a placeholder if no image is available
+              alt={story.title}
+              className="w-full h-[300px] object-cover mb-4"
+            />
+            <div className="text-sm text-gray-500 mb-2">
+              <span>{new Date(story.publishedAt).toLocaleDateString()}</span> | 
+              <span>{story.source?.name || 'Unknown Source'}</span>
             </div>
-
-            {/* News Title */}
             <h2 className="text-xl font-bold text-black hover:text-gray-500 cursor-pointer mb-4">
-              <a href={story.url}>{story.title}</a>
+              <a href={story.url} target="_blank" rel="noopener noreferrer">
+                {story.title}
+              </a>
             </h2>
-
-            {/* Truncated News Content */}
             <p className="text-gray-600 mt-2 text-sm">
-              {truncateContent(story.content, 50)}
+              {truncateContent(story.description || '', 50)}
             </p>
-
-            {/* Read More Link */}
-            <a
-              href={story.url}
-              className="text-blue-600 hover:text-gray-500 mt-2 block"
-            >
-              Read more
-            </a>
           </div>
+        ))}
+      </div>
+
+      {/* Pagination controls */}
+      <div className="flex justify-center">
+        {Array.from({ length: Math.ceil(newsStories.length / storiesPerPage) }, (_, index) => (
+          <button
+            key={index}
+            className={`px-4 py-2 mx-2 ${currentPage === index + 1 ? 'bg-red-500 text-white' : 'bg-gray-200 text-black'}`}
+            onClick={() => paginate(index + 1)}
+          >
+            {index + 1}
+          </button>
         ))}
       </div>
 
@@ -205,4 +127,3 @@ const FeaturedStories = () => {
 };
 
 export default FeaturedStories;
-
