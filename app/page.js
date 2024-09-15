@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Navbar from "./components/Navbar";
+import { analytics } from "@/lib/firebase";
 
 export default function Home() {
   return (
@@ -9,18 +10,12 @@ export default function Home() {
       </header>
 
       <main className="flex flex-col items-center justify-center gap-8 row-start-2 text-center sm:text-left">
-        <h1 className="text-3xl font-bold text-gray-800">Welcome to My Website</h1>
-        <ol className="list-inside list-decimal text-sm text-gray-700 font-[family-name:var(--font-geist-mono)]">
-          {/* Add more list items if needed */}
-          <li>
-            <Link
-              href="./NewsPaper"
-              className="text-blue-600 hover:text-blue-800 underline"
-            >
-              Go to News article Page
-            </Link>
-          </li>
-        </ol>
+        <h1 className="text-3xl font-bold text-gray-800">Welcome to ACONEWS</h1>
+        <div className="text-center">
+        <Link href="/NewsPaper" className="inline-block px-4 py-2 border border-gray-500 rounded-3xl text-blue-500 hover:text-blue-800 hover:bg-gray-100 transition-colors duration-300">
+          Go to News Feed
+        </Link>
+      </div>
       </main>
 
       <footer className="row-start-3 text-center text-gray-600">

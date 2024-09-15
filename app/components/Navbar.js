@@ -22,15 +22,6 @@ const Navbar = () => {
           <li>
             <Link href="/" className="text-black hover:text-gray-500 transition-colors">Home</Link>
           </li>
-          <li>
-            <Link href="/category/world" className="text-black hover:text-gray-500 transition-colors">World</Link>
-          </li>
-          <li>
-            <Link href="/category/sports" className="text-black hover:text-gray-500 transition-colors">Sports</Link>
-          </li>
-          <li>
-            <Link href="/search" className="text-black hover:text-gray-500 transition-colors">Search</Link>
-          </li>
         </ul>
       </div>
     </nav>
