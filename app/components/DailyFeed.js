@@ -35,7 +35,9 @@ const DailyFeed = () => {
   };
 
   // Determine which news item to display as the top item
-  const [topNewsItem, ...otherNewsItems] = newsFeed.length > 1 ? [newsFeed[1], ...newsFeed[2]] : newsFeed;
+  // const [topNewsItem, ...otherNewsItems] = newsFeed.length > 1 ? [newsFeed[1], ...newsFeed[2]] : newsFeed;
+  const [topNewsItem, ...otherNewsItems] = newsFeed.length > 2 ? [newsFeed[1], newsFeed[2]] : newsFeed;
+
 
   return (
     <div className="bg-white p-4">
